@@ -46,6 +46,9 @@ import java.util.concurrent.TimeUnit;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="testTeleOp", group="Iterative Opmode")
 @Disabled
+
+// Plz ignore this disabled class.
+
 public class TeleOpMode_Iterative extends OpMode
 {
     private ElapsedTime runtime = new ElapsedTime();

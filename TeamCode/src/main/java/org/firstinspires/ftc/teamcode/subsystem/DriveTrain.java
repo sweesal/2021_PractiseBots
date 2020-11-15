@@ -39,23 +39,17 @@ public class DriveTrain {
             leftMotorOutput [1] = -xSpeed;
             rightMotorOutput [0] = xSpeed;
             rightMotorOutput [1] = xSpeed;
-        }
-
-        else if (zRotation != 0.0){
+        } else if (zRotation != 0.0) {
             leftMotorOutput [0] = -zRotation;
             leftMotorOutput [1] = -zRotation;
             rightMotorOutput [0] = -zRotation;
             rightMotorOutput [1] = -zRotation;
-        }
-
-        else if (yTranslation != 0.0){
+        } else if (yTranslation != 0.0) {
             leftMotorOutput[0] = yTranslation;
             leftMotorOutput[1] = -yTranslation;
             rightMotorOutput[0] = yTranslation;
             rightMotorOutput[1] = -yTranslation;
-        }
-
-        else {
+        } else {
             Arrays.fill(leftMotorOutput, 0);
             Arrays.fill(rightMotorOutput, 0);
         }

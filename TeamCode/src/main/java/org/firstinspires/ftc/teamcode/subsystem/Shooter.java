@@ -24,11 +24,11 @@ public class Shooter {
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
         elevator.resetDeviceConfigurationForOpMode();
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         trigger.setDirection(Servo.Direction.REVERSE);
         slope.setDirection(Servo.Direction.REVERSE);
         triggerSwitchIn.setMode(DigitalChannel.Mode.INPUT);
         triggerSwitchOut.setMode(DigitalChannel.Mode.INPUT);
-
     }
 
     public void setShooter (boolean isBtnPressed) {
@@ -40,12 +40,12 @@ public class Shooter {
             shooter.setPower(0);//stop shooting
     }
 
-    public void setSlope (double inputPos) {
+    private void setSlope (double inputPos) {
         double pos = Range.clip(inputPos, -0.95, 0.95);
         slope.setPosition(pos);
     }
 
-    public void setTrigger(double inputPos) {
+    private void setTrigger(double inputPos) {
         double pos = Range.clip(inputPos, -0.95, 0.95);
         trigger.setPosition(pos);
     }
@@ -57,16 +57,19 @@ public class Shooter {
             setTrigger(0.6);
     }
 
-
+    // This is the method for controlling the slope servo
+    // so as to adjust the shooting angle.
+    // Current value is 0.45 - 0.52, as the code below.
     public void ctrlSlope (double input) {
         setSlope(Range.clip(input, 0, 1)*0.07 + 0.45);
     }
 
+    // Get the value of the limit switch.
     public boolean getSwitch () {
         return triggerSwitchOut.getState();
     }
 
-
+    // Elevator mechanism can only move to one direction if top/button limit was triggered.
     public void setElevator (double input, boolean isAtTop, boolean isAtButton) {
         if (isAtTop)
             elevator.setPower(Range.clip(input, -0.15, 0));
@@ -79,7 +82,5 @@ public class Shooter {
     public double getElevator () {
         return elevator.getCurrentPosition();
     }
-
-
 
 }

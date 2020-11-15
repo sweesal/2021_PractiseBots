@@ -22,7 +22,6 @@ public class RobotMap {
     public static DigitalChannel triggerSwitchIn = null;
     public static DigitalChannel triggerSwitchOut = null;
 
-    //public static final double Ki_standard = 0.1;
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;

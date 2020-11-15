@@ -10,7 +10,7 @@ public class Intake {
     private final DcMotor intake = RobotMap.intake;
     private static boolean isIntakeTriggered = false;
 
-    private static final double intakePower = 0.6;
+    private static final double intakePower = 0.9;
 
     public Intake () {
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -20,7 +20,7 @@ public class Intake {
         if (isBtnPressed)
             isIntakeTriggered = !isIntakeTriggered;
         if (isIntakeTriggered)
-            intake.setPower(0.9);//intake power
+            intake.setPower(intakePower);//intake power
         else
             intake.setPower(0);//stop intake
     }

@@ -47,9 +47,6 @@ public class TeleOpMode_Linear extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     RobotMap robotMap = new RobotMap();
-    private DriveTrain driveTrain;
-    private Intake intake;
-    private Shooter shooter;
 
     @Override
     public void runOpMode() {
@@ -57,9 +54,9 @@ public class TeleOpMode_Linear extends LinearOpMode {
         telemetry.update();
 
         robotMap.robotInit(hardwareMap);
-        driveTrain = new DriveTrain();
-        intake = new Intake();
-        shooter = new Shooter();
+        DriveTrain driveTrain = new DriveTrain();
+        Intake intake = new Intake();
+        Shooter shooter = new Shooter();
 
 
         waitForStart();
@@ -67,17 +64,20 @@ public class TeleOpMode_Linear extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            //driveTrain.driveMecanum(
-            //        gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            // Drivetrain.
+            driveTrain.driveMecanum(
+                    gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+
+            // Superstructure
             intake.setIntake(gamepad1.left_bumper);
             shooter.setShooter(gamepad1.right_bumper);
             shooter.ctrlSlope(gamepad1.right_trigger);
             shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
+            // This is for showing the encoder value.
             telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
-
-
-            shooter.setElevator(-gamepad1.left_stick_y*0.3, !shooter.getSwitch(), shooter.getElevator() < 0);
+            shooter.setElevator(-gamepad1.left_stick_y*0.3, !shooter.getSwitch(),
+                    shooter.getElevator() < 0);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
