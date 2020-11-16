@@ -64,7 +64,7 @@ public class TeleOpMode_Linear extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            // Drivetrain.
+            // DriveTrain.
             driveTrain.driveMecanum(
                     gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
@@ -74,10 +74,11 @@ public class TeleOpMode_Linear extends LinearOpMode {
             shooter.ctrlSlope(gamepad1.right_trigger);
             shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
-            // This is for showing the encoder value.
-            telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
-            shooter.setElevator(-gamepad1.left_stick_y*0.3, !shooter.getSwitch(),
+            shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(),
                     shooter.getElevator() < 0);
+
+            // This is for showing the encoder value of the elevator.
+            telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();

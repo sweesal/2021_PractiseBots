@@ -73,18 +73,15 @@ public class TeleOpMode_Iterative extends OpMode
     @Override
     public void loop() {
 
-//        driveTrain.driveMecanum(
-//                gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        //driveTrain.driveMecanum(
+        //        gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
         intake.setIntake(gamepad1.left_bumper);
         shooter.setShooter(gamepad1.right_bumper);
 
-
         shooter.ctrlSlope(gamepad1.right_trigger);
 
-        //shooter.setElevator(gamepad1.left_stick_y*0.5);
-
-//        else
-//            shooter.setElevator(0.5);
+        //shooter.setElevator(-gamepad1.left_stick_y*0.3, !shooter.getSwitch(),
+        //        shooter.getElevator() < 0);
 
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
 
@@ -94,12 +91,9 @@ public class TeleOpMode_Iterative extends OpMode
             telemetry.addData("Digital Touch", "false");
         }
 
-
         if (shooter.getSwitch()) {
             triggerFlag = true;
         }
-
-
 
         shooter.setTrigger(gamepad1.y);
 
@@ -112,8 +106,8 @@ public class TeleOpMode_Iterative extends OpMode
 
         //telemetry.addData("trigger time", triggerTime);
         //telemetry.addData("time", runtime.now(TimeUnit.MILLISECONDS));
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
         //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
     @Override
@@ -127,12 +121,10 @@ public class TeleOpMode_Iterative extends OpMode
         boolean finaltate = false;
         boolean triggerCmd = false;
 
-
         triggerCmd = finaltate;
         shooter.setTrigger(triggerCmd);
 
-
-        //        double duration = 5000;//ms
+//        double duration = 5000;//ms
 //        if (!shooter.getSwitch()) {
 //            triggerFlag = true;
 //        }
@@ -144,15 +136,16 @@ public class TeleOpMode_Iterative extends OpMode
 //            shooter.setTrigger(0.6);
 //            triggerFlag = false;
 //        }
-//            triggerFlag = true;
-//            double duration = 5000;//ms
-//            triggerTime = runtime.now(TimeUnit.MILLISECONDS) + duration;
-//            if (triggerTime - runtime.now(TimeUnit.MILLISECONDS) > 0) {
-//                shooter.setTrigger(0.175);
-//            } else {
-//                triggerFlag = false;
-//                shooter.setTrigger(0.6);
-//            }
+//        triggerFlag = true;
+//        double duration = 5000;//ms
+//        triggerTime = runtime.now(TimeUnit.MILLISECONDS) + duration;
+//        if (triggerTime - runtime.now(TimeUnit.MILLISECONDS) > 0) {
+//            shooter.setTrigger(0.175);
+//        } else {
+//            triggerFlag = false;
+//            shooter.setTrigger(0.6);
+//        }
+
     }
 
 }

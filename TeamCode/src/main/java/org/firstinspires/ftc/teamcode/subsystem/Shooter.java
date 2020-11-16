@@ -22,6 +22,7 @@ public class Shooter {
 
     public Shooter () {
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         elevator.resetDeviceConfigurationForOpMode();
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -72,11 +73,28 @@ public class Shooter {
     // Elevator mechanism can only move to one direction if top/button limit was triggered.
     public void setElevator (double input, boolean isAtTop, boolean isAtButton) {
         if (isAtTop)
-            elevator.setPower(Range.clip(input, -0.15, 0));
+            elevator.setPower(Range.clip(input, -0.2, 0));
         else if (isAtButton)
-            elevator.setPower(Range.clip(input, 0, 0.15));
+            elevator.setPower(Range.clip(input, 0, 0.2));
         else
             elevator.setPower(Range.clip(input, -0.5, 0.5));
+    }
+
+    // When Y btn of gamepad was pressed elevator goes up, and goes down if A btn pressed.
+    // The elevator will single-directional-maneuverable when top/button limit was triggered.
+    public void elevatorMove (boolean cmdUp, boolean cmdDown, boolean isAtTop, boolean isAtButton) {
+        if (isAtTop)
+            elevator.setPower(cmdDown ? -0.2 : 0);
+        else if (isAtButton)
+            elevator.setPower(cmdUp ? 0.2 : 0);
+        else {
+            if (cmdUp)
+                elevator.setPower(0.4);
+            if (cmdDown)
+                elevator.setPower(-0.4);
+            else
+                elevator.setPower(0);
+        }
     }
 
     public double getElevator () {
