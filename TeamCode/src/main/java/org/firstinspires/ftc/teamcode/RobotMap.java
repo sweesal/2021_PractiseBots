@@ -16,7 +16,7 @@ public class RobotMap {
     public static DcMotor rightRear = null;
     public static DcMotor intake = null;
     public static DcMotor shooter = null;
-    public static DcMotorEx elevator = null;
+    public static DcMotor elevator = null;
     public static Servo trigger = null;
     public static Servo slope = null;
     public static DigitalChannel triggerSwitchIn = null;
@@ -31,7 +31,7 @@ public class RobotMap {
         rightRear = hardwareMap.get(DcMotor.class,"rightrear");
         intake = hardwareMap.get(DcMotor.class,"intake");
         shooter = hardwareMap.get(DcMotor.class,"shooter");
-        elevator = hardwareMap.get(DcMotorEx.class,"elevator");
+        elevator = hardwareMap.get(DcMotor.class,"elevator");
         trigger = hardwareMap.get(Servo.class,"trigger");
         slope = hardwareMap.get(Servo.class,"slope");
         triggerSwitchIn = hardwareMap.get(DigitalChannel.class, "switchin");

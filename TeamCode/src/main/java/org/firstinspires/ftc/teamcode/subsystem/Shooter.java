@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.RobotMap;
 public class Shooter {
 
     private final DcMotor shooter = RobotMap.shooter;
-    private final DcMotorEx elevator = RobotMap.elevator;
+    private final DcMotor elevator = RobotMap.elevator;
     private final Servo trigger = RobotMap.trigger;
     private final Servo slope = RobotMap.slope;
     private final DigitalChannel triggerSwitchIn = RobotMap.triggerSwitchIn;
@@ -24,8 +24,8 @@ public class Shooter {
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         elevator.resetDeviceConfigurationForOpMode();
+        elevator.setDirection(DcMotorSimple.Direction.FORWARD);
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         trigger.setDirection(Servo.Direction.REVERSE);
         slope.setDirection(Servo.Direction.REVERSE);
         triggerSwitchIn.setMode(DigitalChannel.Mode.INPUT);
@@ -55,7 +55,7 @@ public class Shooter {
         if (isBtnPressed)
             setTrigger(0.175);
         else
-            setTrigger(0.6);
+            setTrigger(0.5);
     }
 
     // This is the method for controlling the slope servo
@@ -84,14 +84,14 @@ public class Shooter {
     // The elevator will single-directional-maneuverable when top/button limit was triggered.
     public void elevatorMove (boolean cmdUp, boolean cmdDown, boolean isAtTop, boolean isAtButton) {
         if (isAtTop)
-            elevator.setPower(cmdDown ? -0.2 : 0);
+            elevator.setPower(cmdDown ? -0.3 : 0);
         else if (isAtButton)
-            elevator.setPower(cmdUp ? 0.2 : 0);
+            elevator.setPower(cmdUp ? 0.3 : 0);
         else {
             if (cmdUp)
-                elevator.setPower(0.4);
+                elevator.setPower(0.35);
             if (cmdDown)
-                elevator.setPower(-0.4);
+                elevator.setPower(-0.35);
             else
                 elevator.setPower(0);
         }

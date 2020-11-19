@@ -66,7 +66,7 @@ public class TeleOpMode_Linear extends LinearOpMode {
 
             // DriveTrain.
             driveTrain.driveMecanum(
-                    gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+                    gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
             // Superstructure
             intake.setIntake(gamepad1.left_bumper);
@@ -74,11 +74,12 @@ public class TeleOpMode_Linear extends LinearOpMode {
             shooter.ctrlSlope(gamepad1.right_trigger);
             shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
-            shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(),
-                    shooter.getElevator() < 0);
-
-            // This is for showing the encoder value of the elevator.
+            //shooter.setElevator(-gamepad1.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
+            shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(), shooter.getElevator() < 0);
+99
+            // This is for showing the encoder & switch value of the elevator.
             telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+            telemetry.addData("Limit Switch", shooter.getSwitch());
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();

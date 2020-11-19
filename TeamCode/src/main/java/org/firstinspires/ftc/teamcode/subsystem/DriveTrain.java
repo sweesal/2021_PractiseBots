@@ -24,6 +24,43 @@ public class DriveTrain {
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    public void driveMecanum(double xSpeed, double zRotation, double yTranslation, boolean isPowerHalfed) {
+        double drive  = -limit(xSpeed);
+        double strafe = limit(yTranslation);
+        double twist  = limit(zRotation);
+
+        if(isPowerHalfed) {
+            drive = 0.5 * drive;
+            strafe = 0.5 * strafe;
+            twist = 0.5 * twist;
+        }
+
+        double[] speeds = {
+                (drive + strafe + twist),
+                (drive - strafe - twist),
+                (drive - strafe + twist),
+                (drive + strafe - twist)
+        };
+
+        double max = Math.abs(speeds[0]);
+
+        for(int i = 0; i < speeds.length; i++) {
+            if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
+        }
+
+        if (max > 1) {
+            for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
+        }
+
+        leftFront.setPower(speeds[0]);
+        rightFront.setPower(speeds[1]);
+        leftRear.setPower(speeds[2]);
+        rightRear.setPower(speeds[3]);
+    }
+
+
+
+
     public void driveMecanum(double xSpeed, double zRotation, double yTranslation) {
         xSpeed = limit(xSpeed);
         //xSpeed = applyDeadband(xSpeed, m_deadband);
