@@ -55,14 +55,14 @@ public class Shooter {
         if (isBtnPressed)
             setTrigger(0.175);
         else
-            setTrigger(0.5);
+            setTrigger(0.4);
     }
 
     // This is the method for controlling the slope servo
     // so as to adjust the shooting angle.
     // Current value is 0.45 - 0.52, as the code below.
     public void ctrlSlope (double input) {
-        setSlope(Range.clip(input, 0, 1)*0.07 + 0.45);
+        setSlope(Range.clip(input, 0, 1)*0.05 + 0.45);
     }
 
     // Get the value of the limit switch.
@@ -84,16 +84,16 @@ public class Shooter {
     // The elevator will single-directional-maneuverable when top/button limit was triggered.
     public void elevatorMove (boolean cmdUp, boolean cmdDown, boolean isAtTop, boolean isAtButton) {
         if (isAtTop)
-            elevator.setPower(cmdDown ? -0.3 : 0);
+            elevator.setPower(cmdDown ? -0.25 : 0);
         else if (isAtButton)
-            elevator.setPower(cmdUp ? 0.3 : 0);
-        else {
+            elevator.setPower(cmdUp ? 0.25 : 0);
+        else if (!isAtTop | !isAtButton){
             if (cmdUp)
-                elevator.setPower(0.35);
+                elevator.setPower(0.3);
             if (cmdDown)
-                elevator.setPower(-0.35);
-            else
-                elevator.setPower(0);
+                elevator.setPower(-0.25);
+        } else if (!cmdDown && !cmdUp){
+            elevator.setPower(0);
         }
     }
 

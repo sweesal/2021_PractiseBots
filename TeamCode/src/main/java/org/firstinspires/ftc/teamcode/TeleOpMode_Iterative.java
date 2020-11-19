@@ -44,8 +44,8 @@ import org.firstinspires.ftc.teamcode.subsystem.Shooter;
 import java.util.concurrent.TimeUnit;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="testTeleOp", group="Iterative Opmode")
-@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode", group="Iterative Opmode")
+//@Disabled
 
 // Plz ignore this disabled class.
 
@@ -73,41 +73,25 @@ public class TeleOpMode_Iterative extends OpMode
     @Override
     public void loop() {
 
-        //driveTrain.driveMecanum(
-        //        gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        // DriveTrain.
+        driveTrain.driveMecanum(
+                gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
+
+        // Superstructure
         intake.setIntake(gamepad1.left_bumper);
         shooter.setShooter(gamepad1.right_bumper);
-
         shooter.ctrlSlope(gamepad1.right_trigger);
+        shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
-        //shooter.setElevator(-gamepad1.left_stick_y*0.3, !shooter.getSwitch(),
-        //        shooter.getElevator() < 0);
+        //shooter.setElevator(-gamepad1.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
+        shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(), shooter.getElevator() < 0);
 
+        // This is for showing the encoder & switch value of the elevator.
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+        telemetry.addData("Limit Switch", shooter.getSwitch());
 
-        if (shooter.getSwitch()) {
-            telemetry.addData("Digital Touch", "true");
-        } else {
-            telemetry.addData("Digital Touch", "false");
-        }
-
-        if (shooter.getSwitch()) {
-            triggerFlag = true;
-        }
-
-        shooter.setTrigger(gamepad1.y);
-
-
-        if (triggerFlag) {
-            telemetry.addData("Digital Touch", "true");
-        } else {
-            telemetry.addData("Digital Touch", "false");
-        }
-
-        //telemetry.addData("trigger time", triggerTime);
-        //telemetry.addData("time", runtime.now(TimeUnit.MILLISECONDS));
-        //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
     }
 
     @Override
@@ -118,10 +102,10 @@ public class TeleOpMode_Iterative extends OpMode
         double duration = 1000;//ms
         boolean triggerTempA = false;
         boolean triggerTempB = false;
-        boolean finaltate = false;
+        boolean finalState = false;
         boolean triggerCmd = false;
 
-        triggerCmd = finaltate;
+        triggerCmd = finalState;
         shooter.setTrigger(triggerCmd);
 
 //        double duration = 5000;//ms

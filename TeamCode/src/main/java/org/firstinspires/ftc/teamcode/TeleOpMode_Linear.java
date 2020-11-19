@@ -40,7 +40,7 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Shooter;
 
-@TeleOp(name="Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Double Driver Mode", group="Linear Opmode")
 //@Disabled
 public class TeleOpMode_Linear extends LinearOpMode {
 
@@ -69,14 +69,14 @@ public class TeleOpMode_Linear extends LinearOpMode {
                     gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
             // Superstructure
-            intake.setIntake(gamepad1.left_bumper);
-            shooter.setShooter(gamepad1.right_bumper);
-            shooter.ctrlSlope(gamepad1.right_trigger);
-            shooter.setTrigger(gamepad1.left_trigger > 0.5);
+            intake.setIntake(gamepad2.left_bumper);
+            shooter.setShooter(gamepad2.right_bumper);
+            shooter.ctrlSlope(gamepad2.right_trigger);
+            shooter.setTrigger(gamepad2.left_trigger > 0.5);
 
             //shooter.setElevator(-gamepad1.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
-            shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(), shooter.getElevator() < 0);
-99
+            shooter.elevatorMove(gamepad2.y, gamepad2.a, !shooter.getSwitch(), shooter.getElevator() < 0);
+
             // This is for showing the encoder & switch value of the elevator.
             telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
             telemetry.addData("Limit Switch", shooter.getSwitch());
