@@ -1,3 +1,19 @@
+## Manual
+
+This is the code for team 6986's ftc robot prototype.  
+To look into the code, open package "TeamCode -> java -> org.firstinspires.ftc.teamcode".
+
+主程序分为单人模式和双人模式， 类名分别为 TeleOpMode_Iterative 和 TeleOpMode_Linear.  
+ (OpMode = operation mode, 在手机客户端中可以选择不同的 opmode)
+
+ 所有的电控元件(直流电机、伺服电机等)在 RobotMap 中进行定义，并在 OpMode 中实例化。
+ 名为“subsystem”的包(package)中描述了机器的不同子结构(底盘，抓取结构等)的相应动作.
+ 这些动作在 OpMode 中, 由游戏手柄(gamepad)触发并执行。
+
+ Note that this is ONLY a demo for function testing.
+ Nothing you're going to see here is final (Or maybe it is xD).
+
+
 ## TeamCode Module
 
 Welcome!
