@@ -49,8 +49,7 @@ import java.util.concurrent.TimeUnit;
 
 // Plz ignore this disabled class.
 
-public class TeleOpMode_Iterative extends OpMode
-{
+public class TeleOpMode_Iterative extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     RobotMap robotMap = new RobotMap();
     private DriveTrain driveTrain;
@@ -78,8 +77,8 @@ public class TeleOpMode_Iterative extends OpMode
                 gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
         // Superstructure
-        intake.setIntake(gamepad1.left_bumper);
-        shooter.setShooter(gamepad1.right_bumper);
+        intake.setIntake(gamepad1.left_bumper, gamepad1.right_bumper);
+        shooter.setShooter(gamepad1.b);
         shooter.ctrlSlope(gamepad1.right_trigger);
         shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
@@ -96,6 +95,7 @@ public class TeleOpMode_Iterative extends OpMode
 
     @Override
     public void stop() {
+
     }
 
     public void triggerMove () {
@@ -129,7 +129,5 @@ public class TeleOpMode_Iterative extends OpMode
 //            triggerFlag = false;
 //            shooter.setTrigger(0.6);
 //        }
-
     }
-
 }

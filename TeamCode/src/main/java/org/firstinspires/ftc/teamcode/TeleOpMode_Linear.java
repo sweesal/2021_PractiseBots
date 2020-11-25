@@ -44,7 +44,6 @@ import org.firstinspires.ftc.teamcode.subsystem.Shooter;
 //@Disabled
 public class TeleOpMode_Linear extends LinearOpMode {
 
-
     private ElapsedTime runtime = new ElapsedTime();
     RobotMap robotMap = new RobotMap();
 
@@ -69,8 +68,8 @@ public class TeleOpMode_Linear extends LinearOpMode {
                     gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
             // Superstructure
-            intake.setIntake(gamepad2.left_bumper);
-            shooter.setShooter(gamepad2.right_bumper);
+            intake.setIntake(gamepad2.left_bumper, gamepad2.right_bumper);
+            shooter.setShooter(gamepad2.b);
             shooter.ctrlSlope(gamepad2.right_trigger);
             shooter.setTrigger(gamepad2.left_trigger > 0.5);
 
