@@ -29,29 +29,22 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.internal.tfod.Timer;
-import org.firstinspires.ftc.teamcode.subsystem.DriveTrain;
-import org.firstinspires.ftc.teamcode.subsystem.Intake;
-import org.firstinspires.ftc.teamcode.subsystem.Shooter;
-
-import java.util.concurrent.TimeUnit;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrain;
+import org.firstinspires.ftc.teamcode.subsystemBotA.Intake;
+import org.firstinspires.ftc.teamcode.subsystemBotA.Shooter;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode", group="Iterative Opmode")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode A", group="Iterative Opmode")
 //@Disabled
 
 // Plz ignore this disabled class.
 
-public class TeleOpMode_Iterative extends OpMode {
+public class SingleDriverBotA extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMap robotMap = new RobotMap();
+    RobotMapBotA robotMapBotA = new RobotMapBotA();
     private DriveTrain driveTrain;
     private Intake intake;
     private Shooter shooter;
@@ -61,7 +54,7 @@ public class TeleOpMode_Iterative extends OpMode {
 
     @Override
     public void init() {
-        robotMap.robotInit(hardwareMap);
+        robotMapBotA.robotInit(hardwareMap);
         driveTrain = new DriveTrain();
         intake = new Intake();
         shooter = new Shooter();

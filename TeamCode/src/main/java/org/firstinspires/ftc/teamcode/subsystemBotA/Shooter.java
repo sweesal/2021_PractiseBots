@@ -1,22 +1,21 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.subsystemBotA;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.RobotMap;
+import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
 public class Shooter {
 
-    private final DcMotor shooter = RobotMap.shooter;
-    private final DcMotor elevator = RobotMap.elevator;
-    private final Servo trigger = RobotMap.trigger;
-    private final Servo slope = RobotMap.slope;
-    private final DigitalChannel triggerSwitchIn = RobotMap.triggerSwitchIn;
-    private final DigitalChannel triggerSwitchOut = RobotMap.triggerSwitchOut;
+    private final DcMotor shooter = RobotMapBotA.shooter;
+    private final DcMotor elevator = RobotMapBotA.elevator;
+    private final Servo trigger = RobotMapBotA.trigger;
+    private final Servo slope = RobotMapBotA.slope;
+    private final DigitalChannel triggerSwitchIn = RobotMapBotA.triggerSwitchIn;
+    private final DigitalChannel triggerSwitchOut = RobotMapBotA.triggerSwitchOut;
 
     private static boolean isShooting = false; //default state;
 

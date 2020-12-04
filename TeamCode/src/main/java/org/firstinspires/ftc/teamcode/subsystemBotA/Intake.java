@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.subsystemBotA;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.RobotMap;
+import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
 public class Intake {
 
-    private final DcMotor intake = RobotMap.intake;
+    private final DcMotor intake = RobotMapBotA.intake;
     private static boolean isIntakeTriggered = false;
 
     private static final double intakePower = 0.9;

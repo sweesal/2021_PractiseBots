@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.subsystemBotA;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.RobotMap;
+import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
 import java.util.Arrays;
 
 public class DriveTrain {
 
-    private final DcMotor leftFront = RobotMap.leftFront;
-    private final DcMotor leftRear = RobotMap.leftRear;
-    private final DcMotor rightFront = RobotMap.rightFront;
-    private final DcMotor rightRear = RobotMap.rightRear;
+    private final DcMotor leftFront = RobotMapBotA.leftFront;
+    private final DcMotor leftRear = RobotMapBotA.leftRear;
+    private final DcMotor rightFront = RobotMapBotA.rightFront;
+    private final DcMotor rightRear = RobotMapBotA.rightRear;
 
     public DriveTrain () {
         leftFront.setDirection(DcMotor.Direction.FORWARD);

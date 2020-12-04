@@ -29,30 +29,27 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.subsystem.DriveTrain;
-import org.firstinspires.ftc.teamcode.subsystem.Intake;
-import org.firstinspires.ftc.teamcode.subsystem.Shooter;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrain;
+import org.firstinspires.ftc.teamcode.subsystemBotA.Intake;
+import org.firstinspires.ftc.teamcode.subsystemBotA.Shooter;
 
-@TeleOp(name="Double Driver Mode", group="Linear Opmode")
+@TeleOp(name="Double Driver Mode A", group="Linear Opmode")
 //@Disabled
-public class TeleOpMode_Linear extends LinearOpMode {
+public class DoubleDriverBotB extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMap robotMap = new RobotMap();
+    RobotMapBotA robotMapBotA = new RobotMapBotA();
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robotMap.robotInit(hardwareMap);
+        robotMapBotA.robotInit(hardwareMap);
         DriveTrain driveTrain = new DriveTrain();
         Intake intake = new Intake();
         Shooter shooter = new Shooter();
