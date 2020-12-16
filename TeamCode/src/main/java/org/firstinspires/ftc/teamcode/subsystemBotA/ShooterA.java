@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
-public class Shooter {
+public class ShooterA {
 
     private final DcMotor shooter = RobotMapBotA.shooter;
     private final DcMotor elevator = RobotMapBotA.elevator;
@@ -19,7 +19,7 @@ public class Shooter {
 
     private static boolean isShooting = false; //default state;
 
-    public Shooter () {
+    public ShooterA() {
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         elevator.resetDeviceConfigurationForOpMode();
@@ -54,7 +54,7 @@ public class Shooter {
         if (isBtnPressed)
             setTrigger(0.175);
         else
-            setTrigger(0.4);
+            setTrigger(0.475);
     }
 
     // This is the method for controlling the slope servo

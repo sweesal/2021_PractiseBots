@@ -1,210 +1,103 @@
+/* Copyright (c) 2017 FIRST. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.*;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")
-public  class SingleDriverBotB extends OpMode{
-    private static final double SHOOTER_VELOCITY = 1800;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
+import org.firstinspires.ftc.teamcode.subsystemBotB.DriveTrainB;
+import org.firstinspires.ftc.teamcode.subsystemBotB.IntakeB;
+import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
 
-    //private HardwareRobot hardwareRobot = new HardwareRobot();
-    private RobotMapBotB hardwareRobot = new RobotMapBotB();
-    private double m_shooterAngle = 0.55;
-    private boolean isShoot = false;
-    private int shoottime = 0;
-    private boolean pushRing = false;
-    private ElapsedTime keyDelay = new ElapsedTime();
-    private ElapsedTime ringPushDelay = new ElapsedTime();
+
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")
+@Disabled
+
+public class SingleDriverBotB extends OpMode {
+    private ElapsedTime runtime = new ElapsedTime();
+    RobotMapBotB robotMapBot = new RobotMapBotB();
+    private DriveTrainB driveTrain;
+    private IntakeB intake;
+    private ShooterB shooter;
+
+    private boolean triggerFlag = false;
+    private double triggerTime = 0;
 
     @Override
     public void init() {
-        telemetry = new MultipleTelemetry(telemetry,FtcDashboard.getInstance().getTelemetry());
-        hardwareRobot.init(hardwareMap);
-        telemetry.addData("Status","initialized.");
-
+        robotMapBot.robotInit(hardwareMap);
+        driveTrain = new DriveTrainB();
+        intake = new IntakeB();
+        shooter = new ShooterB();
+        telemetry.addData("Status", "Initialized");
     }
 
-    @Override
-    public void init_loop() {
-
-    }
-
-    @Override
-    public void start() {
-        keyDelay.reset();
-        keyDelay.reset();
-        ringPushDelay.reset();
-    }
 
     @Override
     public void loop() {
-        //drive base
-//        __________________________________________________________________________
-        double drive = -gamepad1.left_stick_y;
-        double turn =  gamepad1.right_stick_x;
-        double translation = gamepad1.left_stick_x;
-        if(Math.abs(drive) < 0.05)
-        {
-            drive = 0.0;
-        }
-        if(Math.abs(turn) < 0.05)
-        {
-            turn = 0.0;
-        }
-        if(Math.abs(translation) < 0.05)
-        {
-            translation = 0.0;
-        }
 
-        double[] speed ={
-                drive + turn + translation,
-                drive + turn - translation,
-                drive - turn - translation,
-                drive - turn + translation};
-        double max = 1.0;
-        for(double x : speed){
-            if(Math.abs(x) > max)   max = Math.abs(x);
-        }
-        // if power value more than 1.0, dived by max;
-        if(max > 1.0)
-        {
-            for(int i = 0; i< speed.length; i++)
-            {
-                speed[i] /= max;
-            }
-        }
-        driveBaseMove(speed[0],speed[1],speed[2],speed[3]);
-        telemetry.addData("leftFrontVel",hardwareRobot.leftFront.getVelocity());
-        telemetry.addData("leftRearVel",hardwareRobot.leftRear.getVelocity());
-        telemetry.addData("rightFrontVel",hardwareRobot.rightFront.getVelocity());
-        telemetry.addData("rightRearVel",hardwareRobot.rightRear.getVelocity());
-
-        //intake
-//        ____________________________________________________________________
-
-        if(gamepad1.x)
-        {
-            if(hardwareRobot.downLimit.getState())
-            {
-                hardwareRobot.plateLift.setPower(-0.5);
-            }
-            else
-            {
-                hardwareRobot.plateLift.setPower(0.0);
-                hardwareRobot.intake.setPower(1.0);
-                hardwareRobot.ringStack.setPower(1.0);
-            }
-
-        }
-        else{
-            hardwareRobot.intake.setPower(0.0);
-            hardwareRobot.ringStack.setPower(0.0);
-        }
-
-        //angleChanger
-        if(gamepad1.dpad_up && keyDelay.seconds() > 0.2)
-        {
-            m_shooterAngle +=0.025;
-            keyDelay.reset();
-        }
-        else if(gamepad1.dpad_down && keyDelay.seconds() >0.2)
-        {
-            m_shooterAngle -=0.025;
-            keyDelay.reset();
-        }
-        if(m_shooterAngle > 0.75)
-        {
-            m_shooterAngle = 0.75;
-        }
-        if(m_shooterAngle < 0.55)
-        {
-            m_shooterAngle = 0.55;
-        }
-        hardwareRobot.angleChanger.setPosition(m_shooterAngle);
-        telemetry.addData("Shooter Angle","%2f",m_shooterAngle);
-
-        //plate lift
-//        __________________________________________________________________
-        telemetry.addData("upLimit",hardwareRobot.upLimit.getState());
-        double liftPower = -gamepad1.right_stick_y * 0.6;
-        if(!hardwareRobot.upLimit.getState() && liftPower > 0.0)
-        {
-            hardwareRobot.plateLift.setPower(0.0);
-        }
-        else if(!hardwareRobot.downLimit.getState() && liftPower < 0.0)
-        {
-            hardwareRobot.plateLift.setPower(0.0);
-        }
-        else
-        {
-            hardwareRobot.plateLift.setPower(liftPower);
-        }
-//        ring push
-//        ________________________________________________________________
-        if(gamepad1.right_bumper && keyDelay.seconds() > 0.3)
-        {
-            pushRing = true;
-            keyDelay.reset();
-            ringPushDelay.reset();
-        }
-        if(pushRing)
-        {
-            hardwareRobot.ringPush.setPosition(0.7);
-            if(ringPushDelay.seconds() > 1.0)
-            {
-                hardwareRobot.ringPush.setPosition(0.2);
-                pushRing = false;
-            }
-        }
+        // DriveTrain.
+        driveTrain.driveMecanum(
+                gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
 
-        //shooter
-//        _________________________________________________________________
-        if(gamepad1.left_bumper && keyDelay.seconds() >0.2)
-        {
-            isShoot = !isShoot;
-            keyDelay.reset();
-        }
-        if(isShoot)
-        {
-            hardwareRobot.shooter.setVelocity(SHOOTER_VELOCITY);
-        }
-        else
-        {
-            hardwareRobot.shooter.setMotorDisable();
-        }
-        telemetry.addData("shooter velocity", "%2f",
-                hardwareRobot.shooter.getVelocity());
-//        if(gamepad1.left_bumper && shootDelay.seconds() > 0.5)
-//        {
-//            isShoot = !isShoot;
-//            shootDelay.reset();
-//        }
-//
-//        if(isShoot)
-//        {
-//            hardwareRobot.shooter.setVelocity(100);
-//
-//        }
-//        else
-//        {
-//            hardwareRobot.shooter.setMotorDisable();
-//            hardwareRobot.ringPush.setPosition(0.5);
-//        }
+        // Superstructure
+        intake.setIntake(gamepad1.left_bumper, gamepad1.right_bumper);
 
+        shooter.setShooter(gamepad1.b);
+        shooter.ctrlSlope(gamepad1.right_trigger);
+        shooter.setTrigger(gamepad1.left_trigger > 0.5);
+
+        //shooter.setElevator(-gamepad1.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
+        //shooter.elevatorMove(gamepad1.y, gamepad1.a, !shooter.getSwitch(), shooter.getElevator() < 0);
+
+        // This is for showing the encoder & switch value of the elevator.
+        telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+        telemetry.addData("Limit Switch", shooter.getSwitch1());
+        telemetry.addData("Limit Switch", shooter.getSwitch2());
+        telemetry.addData("Limit Switch", shooter.getSwitch3());
+        telemetry.addData("Limit Switch", shooter.getSwitch4());
+
+
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
     }
 
     @Override
     public void stop() {
 
     }
-    public void driveBaseMove(double lf,double lr,double rf,double rr) {
-        hardwareRobot.leftFront.setPower(lf);
-        hardwareRobot.leftRear.setPower(lr);
-        hardwareRobot.rightFront.setPower(rf);
-        hardwareRobot.rightRear.setPower(rr);
 
-    }
+
 }

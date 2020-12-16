@@ -6,14 +6,14 @@ import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
 import java.util.Arrays;
 
-public class DriveTrain {
+public class DriveTrainA {
 
     private final DcMotor leftFront = RobotMapBotA.leftFront;
     private final DcMotor leftRear = RobotMapBotA.leftRear;
     private final DcMotor rightFront = RobotMapBotA.rightFront;
     private final DcMotor rightRear = RobotMapBotA.rightRear;
 
-    public DriveTrain () {
+    public DriveTrainA() {
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.REVERSE);

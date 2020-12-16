@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.RobotMapBotA;
 
-public class Intake {
+public class IntakeA {
 
     private final DcMotor intake = RobotMapBotA.intake;
     private static boolean isIntakeTriggered = false;
 
     private static final double intakePower = 0.9;
 
-    public Intake () {
+    public IntakeA() {
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 

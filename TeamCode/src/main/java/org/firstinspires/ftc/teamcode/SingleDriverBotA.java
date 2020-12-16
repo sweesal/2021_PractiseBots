@@ -32,9 +32,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrain;
-import org.firstinspires.ftc.teamcode.subsystemBotA.Intake;
-import org.firstinspires.ftc.teamcode.subsystemBotA.Shooter;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode A", group="Iterative Opmode")
@@ -45,9 +45,9 @@ import org.firstinspires.ftc.teamcode.subsystemBotA.Shooter;
 public class SingleDriverBotA extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     RobotMapBotA robotMapBotA = new RobotMapBotA();
-    private DriveTrain driveTrain;
-    private Intake intake;
-    private Shooter shooter;
+    private DriveTrainA driveTrainA;
+    private IntakeA intake;
+    private ShooterA shooter;
 
     private boolean triggerFlag = false;
     private double triggerTime = 0;
@@ -55,9 +55,9 @@ public class SingleDriverBotA extends OpMode {
     @Override
     public void init() {
         robotMapBotA.robotInit(hardwareMap);
-        driveTrain = new DriveTrain();
-        intake = new Intake();
-        shooter = new Shooter();
+        driveTrainA = new DriveTrainA();
+        intake = new IntakeA();
+        shooter = new ShooterA();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -66,7 +66,7 @@ public class SingleDriverBotA extends OpMode {
     public void loop() {
 
         // DriveTrain.
-        driveTrain.driveMecanum(
+        driveTrainA.driveMecanum(
                 gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
         // Superstructure

@@ -33,11 +33,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrain;
-import org.firstinspires.ftc.teamcode.subsystemBotA.Intake;
-import org.firstinspires.ftc.teamcode.subsystemBotA.Shooter;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
 
-@TeleOp(name="Double Driver Mode A", group="Linear Opmode")
+@TeleOp(name="Double-Driver Mode A", group="Linear Opmode")
 //@Disabled
 public class DoubleDriverBotB extends LinearOpMode {
 
@@ -50,9 +50,9 @@ public class DoubleDriverBotB extends LinearOpMode {
         telemetry.update();
 
         robotMapBotA.robotInit(hardwareMap);
-        DriveTrain driveTrain = new DriveTrain();
-        Intake intake = new Intake();
-        Shooter shooter = new Shooter();
+        DriveTrainA driveTrainA = new DriveTrainA();
+        IntakeA intake = new IntakeA();
+        ShooterA shooter = new ShooterA();
 
 
         waitForStart();
@@ -61,7 +61,7 @@ public class DoubleDriverBotB extends LinearOpMode {
         while (opModeIsActive()) {
 
             // DriveTrain.
-            driveTrain.driveMecanum(
+            driveTrainA.driveMecanum(
                     gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
             // Superstructure
