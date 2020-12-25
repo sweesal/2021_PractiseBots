@@ -63,9 +63,6 @@ public class DriveTrainB {
         rightRear.setPower(speeds[3]);
     }
 
-
-
-
     public void driveMecanum(double xSpeed, double zRotation, double yTranslation) {
         xSpeed = limit(xSpeed);
         //xSpeed = applyDeadband(xSpeed, m_deadband);

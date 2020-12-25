@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.RobotMapBotA;
@@ -15,13 +16,14 @@ public class ShooterB {
     private final DcMotor elevator = RobotMapBotB.elevator;
     private final Servo trigger = RobotMapBotB.trigger;
     private final Servo slope = RobotMapBotB.slope;
-    private final DigitalChannel upperBoundIn = RobotMapBotB.upperBoundIn;
     private final DigitalChannel upperBoundOut = RobotMapBotB.upperBoundOut;
-    private final DigitalChannel lowerBoundIn = RobotMapBotB.lowerBoundIn;
     private final DigitalChannel lowerBoundOut = RobotMapBotB.lowerBoundOut;
+    private final ElapsedTime triggerTimer;
+    private final ElapsedTime slopeTimer;
 
-
+    private static boolean isTriggered = false;
     private static boolean isShooting = false; //default state;
+    private static double slopeAngle = 0.55; //default value
 
     public ShooterB() {
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -31,10 +33,10 @@ public class ShooterB {
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         trigger.setDirection(Servo.Direction.REVERSE);
         slope.setDirection(Servo.Direction.REVERSE);
-        upperBoundIn.setMode(DigitalChannel.Mode.INPUT);
         upperBoundOut.setMode(DigitalChannel.Mode.INPUT);
-        lowerBoundIn.setMode(DigitalChannel.Mode.INPUT);
         lowerBoundOut.setMode(DigitalChannel.Mode.INPUT);
+        triggerTimer = new ElapsedTime();
+        slopeTimer = new ElapsedTime();
     }
 
     public void setShooter (boolean isBtnPressed) {
@@ -51,39 +53,43 @@ public class ShooterB {
         slope.setPosition(pos);
     }
 
-    private void setTrigger (double inputPos) {
-        double pos = Range.clip(inputPos, -0.95, 0.95);
-        trigger.setPosition(pos);
+    public void setSlope (boolean cmdUp, boolean cmdDown) {
+        if(cmdUp && slopeTimer.seconds() > 0.2) {
+            slopeAngle +=0.025;
+            slopeTimer.reset();
+        } else if(cmdDown && slopeTimer.seconds() >0.2) {
+            slopeAngle -=0.025;
+            slopeTimer.reset();
+        }
+        if(slopeAngle > 0.75) slopeAngle = 0.75;
+        if(slopeAngle < 0.55) slopeAngle = 0.55;
+        slope.setPosition(slopeAngle);
     }
 
-    public void setTrigger (boolean isBtnPressed) {
-        if (isBtnPressed)
-            setTrigger(0.7);
-        else
-            setTrigger(0.2);
-    }
-
-    // This is the method for controlling the slope servo
-    // so as to adjust the shooting angle.
-    // Current value is 0.55 - 0.75, as the code below.
-    public void ctrlSlope (double input) {
-        setSlope(Range.clip(input, 0, 1)*0.2 + 0.55);
+    // Set trigger.
+    public void setTrigger (boolean btnSet) {
+        if(btnSet && triggerTimer.seconds() > 0.3)
+        {
+            isTriggered = true;
+            triggerTimer.reset();
+            slopeTimer.reset();
+        }
+        if(isTriggered) {
+            trigger.setPosition(0.7);
+            if(triggerTimer.seconds() > 1.0)
+            {
+                trigger.setPosition(0.2);
+                isTriggered = false;
+            }
+        }
     }
 
     // Get the value of the limit switch.
-    public boolean getSwitch1 () {
-        return upperBoundIn.getState();
-    }
-
-    public boolean getSwitch2 () {
+    public boolean getSwitchUpper () {
         return upperBoundOut.getState();
     }
 
-    public boolean getSwitch3 () {
-        return lowerBoundIn.getState();
-    }
-
-    public boolean getSwitch4 () {
+    public boolean getSwitchLower () {
         return lowerBoundOut.getState();
     }
 
@@ -99,7 +105,7 @@ public class ShooterB {
 
     // When Y btn of gamepad was pressed elevator goes up, and goes down if A btn pressed.
     // The elevator will single-directional-maneuverable when top/button limit was triggered.
-    public void elevatorMove (boolean cmdUp, boolean cmdDown, boolean isAtTop, boolean isAtButton) {
+    public void setElevator (boolean cmdUp, boolean cmdDown, boolean isAtTop, boolean isAtButton) {
         if (isAtTop)
             elevator.setPower(cmdDown ? -0.25 : 0);
         else if (isAtButton)

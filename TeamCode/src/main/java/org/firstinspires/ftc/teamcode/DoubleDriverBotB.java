@@ -33,27 +33,26 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
-import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
-import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
+import org.firstinspires.ftc.teamcode.subsystemBotB.DriveTrainB;
+import org.firstinspires.ftc.teamcode.subsystemBotB.IntakeB;
+import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
 
 @TeleOp(name="Double-Driver Mode A", group="Linear Opmode")
 //@Disabled
 public class DoubleDriverBotB extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMapBotA robotMapBotA = new RobotMapBotA();
+    RobotMapBotB robotMap = new RobotMapBotB();
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robotMapBotA.robotInit(hardwareMap);
-        DriveTrainA driveTrainA = new DriveTrainA();
-        IntakeA intake = new IntakeA();
-        ShooterA shooter = new ShooterA();
-
+        robotMap.robotInit(hardwareMap);
+        DriveTrainB driveTrain = new DriveTrainB();
+        IntakeB intake = new IntakeB();
+        ShooterB shooter = new ShooterB();
 
         waitForStart();
         runtime.reset();
@@ -61,21 +60,17 @@ public class DoubleDriverBotB extends LinearOpMode {
         while (opModeIsActive()) {
 
             // DriveTrain.
-            driveTrainA.driveMecanum(
+            driveTrain.driveMecanum(
                     gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
             // Superstructure
-            intake.setIntake(gamepad2.left_bumper, gamepad2.right_bumper);
-            shooter.setShooter(gamepad2.b);
-            shooter.ctrlSlope(gamepad2.right_trigger);
-            shooter.setTrigger(gamepad2.left_trigger > 0.5);
-
-            //shooter.setElevator(-gamepad1.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
-            shooter.elevatorMove(gamepad2.y, gamepad2.a, !shooter.getSwitch(), shooter.getElevator() < 0);
+            intake.setIntake(gamepad2.x, gamepad2.b);
+            shooter.setShooter(gamepad2.left_bumper);
+            shooter.setElevator(-gamepad2.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
+            shooter.setSlope(gamepad2.dpad_up, gamepad2.dpad_down);
 
             // This is for showing the encoder & switch value of the elevator.
             telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
-            telemetry.addData("Limit Switch", shooter.getSwitch());
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();

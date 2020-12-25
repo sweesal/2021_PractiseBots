@@ -36,9 +36,9 @@ public class RobotMapBotB {
         rotatePlate = hardwareMap.get(DcMotor.class, "rotateplate");
         trigger = hardwareMap.get(Servo.class,"trigger");
         slope = hardwareMap.get(Servo.class,"slope");
-        upperBoundIn = hardwareMap.get(DigitalChannel.class, "upperin");
+        //upperBoundIn = hardwareMap.get(DigitalChannel.class, "upperin");
         upperBoundOut = hardwareMap.get(DigitalChannel.class, "upperout");
-        lowerBoundIn = hardwareMap.get(DigitalChannel.class, "lowerin");
+        //lowerBoundIn = hardwareMap.get(DigitalChannel.class, "lowerin");
         lowerBoundOut = hardwareMap.get(DigitalChannel.class, "lowerout");
     }
 

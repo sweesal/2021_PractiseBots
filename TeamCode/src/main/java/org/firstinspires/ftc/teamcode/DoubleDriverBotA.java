@@ -29,51 +29,58 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotB.DriveTrainB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.IntakeB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
+import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
+import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")
-@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode A", group="Iterative Opmode")
+//@Disabled
 
-public class SingleDriverBotB extends OpMode {
+// Plz ignore this disabled class.
+
+public class DoubleDriverBotA extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMapBotB robotMapBotB = new RobotMapBotB();
-    private DriveTrainB driveTrain;
-    private IntakeB intake;
-    private ShooterB shooter;
+    RobotMapBotA robotMapBotA = new RobotMapBotA();
+    private DriveTrainA driveTrainA;
+    private IntakeA intake;
+    private ShooterA shooter;
 
     private boolean triggerFlag = false;
     private double triggerTime = 0;
 
     @Override
     public void init() {
-        robotMapBotB.robotInit(hardwareMap);
-        driveTrain = new DriveTrainB();
-        intake = new IntakeB();
-        shooter = new ShooterB();
+        robotMapBotA.robotInit(hardwareMap);
+        driveTrainA = new DriveTrainA();
+        intake = new IntakeA();
+        shooter = new ShooterA();
         telemetry.addData("Status", "Initialized");
     }
 
+
     @Override
     public void loop() {
+
         // DriveTrain.
-        driveTrain.driveMecanum(
+        driveTrainA.driveMecanum(
                 gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
         // Superstructure
-        intake.setIntake(gamepad2.x, gamepad2.b);
-        shooter.setShooter(gamepad2.left_bumper);
-        shooter.setElevator(-gamepad2.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
-        shooter.setSlope(gamepad2.dpad_up, gamepad2.dpad_down);
+        intake.setIntake(gamepad2.left_bumper, gamepad1.right_bumper);
+        shooter.setShooter(gamepad2.b);
+        shooter.ctrlSlope(gamepad2.right_trigger);
+        shooter.setTrigger(gamepad2.left_trigger > 0.5);
+
+        //shooter.setElevator(-gamepad2.right_stick_y, !shooter.getSwitch(), shooter.getElevator() < 0);
+        shooter.elevatorMove(gamepad2.y, gamepad1.a, !shooter.getSwitch(), shooter.getElevator() < 0);
 
         // This is for showing the encoder & switch value of the elevator.
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+        telemetry.addData("Limit Switch", shooter.getSwitch());
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
@@ -84,5 +91,36 @@ public class SingleDriverBotB extends OpMode {
 
     }
 
+    public void triggerMove () {
+        double duration = 1000;//ms
+        boolean triggerTempA = false;
+        boolean triggerTempB = false;
+        boolean finalState = false;
+        boolean triggerCmd = false;
 
+        triggerCmd = finalState;
+        shooter.setTrigger(triggerCmd);
+
+//        double duration = 5000;//ms
+//        if (!shooter.getSwitch()) {
+//            triggerFlag = true;
+//        }
+//        if (triggerFlag)
+//            triggerTime = runtime.now(TimeUnit.MILLISECONDS) + duration;
+//        if (triggerTime > runtime.now(TimeUnit.MILLISECONDS))
+//            shooter.setTrigger(0.175);
+//        else {
+//            shooter.setTrigger(0.6);
+//            triggerFlag = false;
+//        }
+//        triggerFlag = true;
+//        double duration = 5000;//ms
+//        triggerTime = runtime.now(TimeUnit.MILLISECONDS) + duration;
+//        if (triggerTime - runtime.now(TimeUnit.MILLISECONDS) > 0) {
+//            shooter.setTrigger(0.175);
+//        } else {
+//            triggerFlag = false;
+//            shooter.setTrigger(0.6);
+//        }
+    }
 }
