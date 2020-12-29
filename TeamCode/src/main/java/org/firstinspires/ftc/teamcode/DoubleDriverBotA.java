@@ -32,9 +32,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotA.DriveTrainA;
-import org.firstinspires.ftc.teamcode.subsystemBotA.IntakeA;
-import org.firstinspires.ftc.teamcode.subsystemBotA.ShooterA;
+import org.firstinspires.ftc.teamcode.robotA.subsystems.DriveTrainA;
+import org.firstinspires.ftc.teamcode.robotA.subsystems.IntakeA;
+import org.firstinspires.ftc.teamcode.robotA.RobotMapBotA;
+import org.firstinspires.ftc.teamcode.robotA.subsystems.ShooterA;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode A", group="Iterative Opmode")

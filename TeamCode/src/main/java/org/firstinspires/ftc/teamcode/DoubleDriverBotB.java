@@ -33,9 +33,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotB.DriveTrainB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.IntakeB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.DriveTrainB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.IntakeB;
+import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
 
 @TeleOp(name="Double-Driver Mode A", group="Linear Opmode")
 //@Disabled

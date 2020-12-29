@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.subsystemBotA;
+package org.firstinspires.ftc.teamcode.robotA.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.RobotMapBotA;
+import org.firstinspires.ftc.teamcode.robotA.RobotMapBotA;
 
 import java.util.Arrays;
 

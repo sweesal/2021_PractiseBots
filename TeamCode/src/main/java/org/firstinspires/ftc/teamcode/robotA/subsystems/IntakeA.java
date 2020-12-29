@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.subsystemBotA;
+package org.firstinspires.ftc.teamcode.robotA.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.RobotMapBotA;
+import org.firstinspires.ftc.teamcode.robotA.RobotMapBotA;
 
 public class IntakeA {
 

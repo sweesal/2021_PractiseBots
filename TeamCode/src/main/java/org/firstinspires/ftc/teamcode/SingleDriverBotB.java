@@ -29,13 +29,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.subsystemBotB.DriveTrainB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.IntakeB;
-import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.DriveTrainB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.IntakeB;
+import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
+import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")

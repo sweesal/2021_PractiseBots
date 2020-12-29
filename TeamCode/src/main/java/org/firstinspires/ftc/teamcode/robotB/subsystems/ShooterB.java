@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystemBotB;
+package org.firstinspires.ftc.teamcode.robotB.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -7,8 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.RobotMapBotA;
-import org.firstinspires.ftc.teamcode.RobotMapBotB;
+import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 
 public class ShooterB {
 
