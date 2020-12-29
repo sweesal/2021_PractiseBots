@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.subsystemBotB.ShooterB;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")
-@Disabled
+//@Disabled
 
 public class SingleDriverBotB extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,10 +67,11 @@ public class SingleDriverBotB extends OpMode {
                 gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
         // Superstructure
-        intake.setIntake(gamepad2.x, gamepad2.b);
-        shooter.setShooter(gamepad2.left_bumper);
-        shooter.setElevator(-gamepad2.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
-        shooter.setSlope(gamepad2.dpad_up, gamepad2.dpad_down);
+        intake.setIntake(gamepad1.x, gamepad1.b);
+        shooter.setShooter(gamepad1.left_bumper);
+        shooter.setTrigger(gamepad1.right_bumper);
+        shooter.setElevator(-gamepad1.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
+        shooter.setSlope(gamepad1.dpad_up, gamepad1.dpad_down);
 
         // This is for showing the encoder & switch value of the elevator.
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());

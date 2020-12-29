@@ -21,8 +21,8 @@ public class ShooterB {
     private final ElapsedTime triggerTimer;
     private final ElapsedTime slopeTimer;
 
+    private boolean isShoot = false;
     private static boolean isTriggered = false;
-    private static boolean isShooting = false; //default state;
     private static double slopeAngle = 0.55; //default value
 
     public ShooterB() {
@@ -39,13 +39,22 @@ public class ShooterB {
         slopeTimer = new ElapsedTime();
     }
 
+//    public void setShooter (boolean isBtnPressed) {
+//        if (isBtnPressed)
+//            isShooting = !isShooting;
+//        if (isShooting)
+//            shooter.setPower(0.99);//shooting power
+//        else
+//            shooter.setPower(0);//stop shooting
+//    }
+
     public void setShooter (boolean isBtnPressed) {
-        if (isBtnPressed)
-            isShooting = !isShooting;
-        if (isShooting)
-            shooter.setPower(0.99);//shooting power
-        else
-            shooter.setPower(0);//stop shooting
+        if(isBtnPressed && slopeTimer.seconds() >0.2) {
+            isShoot = !isShoot;
+            slopeTimer.reset();
+        }
+        if(isShoot) shooter.setPower(0.99);
+        else shooter.setPower(0);
     }
 
     private void setSlope (double inputPos) {
@@ -75,10 +84,10 @@ public class ShooterB {
             slopeTimer.reset();
         }
         if(isTriggered) {
-            trigger.setPosition(0.7);
+            trigger.setPosition(0.1);
             if(triggerTimer.seconds() > 1.0)
             {
-                trigger.setPosition(0.2);
+                trigger.setPosition(0.75);
                 isTriggered = false;
             }
         }
@@ -86,11 +95,11 @@ public class ShooterB {
 
     // Get the value of the limit switch.
     public boolean getSwitchUpper () {
-        return upperBoundOut.getState();
+        return !upperBoundOut.getState();
     }
 
     public boolean getSwitchLower () {
-        return lowerBoundOut.getState();
+        return !lowerBoundOut.getState();
     }
 
     // Elevator mechanism can only move to one direction if top/button limit was triggered.

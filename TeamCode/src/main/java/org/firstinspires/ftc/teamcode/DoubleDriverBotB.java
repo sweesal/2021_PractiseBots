@@ -66,6 +66,7 @@ public class DoubleDriverBotB extends LinearOpMode {
             // Superstructure
             intake.setIntake(gamepad2.x, gamepad2.b);
             shooter.setShooter(gamepad2.left_bumper);
+            shooter.setTrigger(gamepad2.right_bumper);
             shooter.setElevator(-gamepad2.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
             shooter.setSlope(gamepad2.dpad_up, gamepad2.dpad_down);
 
