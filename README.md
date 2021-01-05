@@ -3,7 +3,7 @@
 This is the code for team 6986's ftc robot prototype.  
 To look into the code, open package "TeamCode -> java -> org.firstinspires.ftc.teamcode".
 
-2020.1.4 更新，增加了第三台机器的程序。
+2021.1.4 更新，增加了第三台机器的程序，升级 RobotController 的 app 版本为 6.1。
 
 2020.12.4 更新，增加了第二台机器的程序。
 
