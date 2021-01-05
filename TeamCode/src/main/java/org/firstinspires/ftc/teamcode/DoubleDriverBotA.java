@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.robotA.RobotMapBotA;
 import org.firstinspires.ftc.teamcode.robotA.subsystems.ShooterA;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode A", group="Iterative Opmode")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode A", group="A")
 //@Disabled
 
 // Plz ignore this disabled class.

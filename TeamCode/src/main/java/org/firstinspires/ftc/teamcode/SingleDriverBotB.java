@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="Iterative Opmode")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="B")
 //@Disabled
 
 public class SingleDriverBotB extends OpMode {
@@ -64,7 +64,7 @@ public class SingleDriverBotB extends OpMode {
     public void loop() {
         // DriveTrain.
         driveTrain.driveMecanum(
-                gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
+                gamepad1.left_stick_y*0.99, gamepad1.right_stick_x*0.99, gamepad1.left_stick_x*0.9, gamepad1.x);
 
         // Superstructure
         intake.setIntake(gamepad1.x, gamepad1.b);

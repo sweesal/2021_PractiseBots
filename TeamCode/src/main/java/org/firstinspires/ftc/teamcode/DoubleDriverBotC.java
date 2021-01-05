@@ -29,53 +29,57 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robotB.subsystems.DriveTrainB;
-import org.firstinspires.ftc.teamcode.robotB.subsystems.IntakeB;
-import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
-import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
+import org.firstinspires.ftc.teamcode.robotC.RobotMapBotC;
+import org.firstinspires.ftc.teamcode.robotC.subsystems.DriveTrainC;
+import org.firstinspires.ftc.teamcode.robotC.subsystems.IntakeC;
+import org.firstinspires.ftc.teamcode.robotC.subsystems.ShooterC;
 
-@TeleOp(name="Double Driver Mode B", group="B")
+
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode C", group="C")
 //@Disabled
-public class DoubleDriverBotB extends LinearOpMode {
 
+public class DoubleDriverBotC extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMapBotB robotMap = new RobotMapBotB();
+    RobotMapBotC robotMapBotC = new RobotMapBotC();
+    private DriveTrainC driveTrain;
+    private IntakeC intake;
+    private ShooterC shooter;
 
     @Override
-    public void runOpMode() {
+    public void init() {
+        robotMapBotC.robotInit(hardwareMap);
+        driveTrain = new DriveTrainC();
+        intake = new IntakeC();
+        shooter = new ShooterC();
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        robotMap.robotInit(hardwareMap);
-        DriveTrainB driveTrain = new DriveTrainB();
-        IntakeB intake = new IntakeB();
-        ShooterB shooter = new ShooterB();
-
-        waitForStart();
-        runtime.reset();
-
-        while (opModeIsActive()) {
-
-            // DriveTrain.
-            driveTrain.driveMecanum(
-                    gamepad1.left_stick_y*0.99, gamepad1.right_stick_x*0.99, gamepad1.left_stick_x*0.9, gamepad1.x);
-
-            // Superstructure
-            intake.setIntake(gamepad2.x, gamepad2.b);
-            shooter.setShooter(gamepad2.left_bumper);
-            shooter.setTrigger(gamepad2.right_bumper);
-            shooter.setElevator(-gamepad2.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
-            shooter.setSlope(gamepad2.dpad_up, gamepad2.dpad_down);
-
-            // This is for showing the encoder & switch value of the elevator.
-            telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
-
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
-        }
     }
+
+    @Override
+    public void loop() {
+        // DriveTrain.
+        driveTrain.driveMecanum(
+                -gamepad1.left_stick_y*0.99, -gamepad1.right_stick_x*0.99, -gamepad1.left_stick_x*0.99, gamepad1.x);
+
+        // Superstructure
+        intake.setIntake(gamepad2.x, gamepad2.b);
+        shooter.setShooter(gamepad2.left_bumper);
+        shooter.setTrigger(gamepad2.right_bumper);
+        shooter.setElevator(gamepad2.right_stick_y*0.6, false, false);
+
+        // This is for showing the encoder & switch value of the elevator.
+        telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+
 }

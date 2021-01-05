@@ -17,7 +17,6 @@ public class RobotMapBotC {
     public static DcMotor shooter = null;
     public static DcMotor elevator = null;
     public static Servo trigger = null;
-    public static Servo slope = null;
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
@@ -29,7 +28,6 @@ public class RobotMapBotC {
         shooter = hardwareMap.get(DcMotor.class,"shooter");
         elevator = hardwareMap.get(DcMotor.class,"elevator");
         trigger = hardwareMap.get(Servo.class,"trigger");
-        slope = hardwareMap.get(Servo.class,"slope");
     }
 
     public void initDcMotor(DcMotor motor){
