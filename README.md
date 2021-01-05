@@ -3,7 +3,9 @@
 This is the code for team 6986's ftc robot prototype.  
 To look into the code, open package "TeamCode -> java -> org.firstinspires.ftc.teamcode".
 
-2020.12.4 更新，增加了另一台机器的程序。
+2020.1.4 更新，增加了第三台机器的程序。
+
+2020.12.4 更新，增加了第二台机器的程序。
 
 主程序分为单人模式和双人模式， 类名分别为 TeleOpMode_Iterative 和 TeleOpMode_Linear.  
  (OpMode = operation mode, 在手机客户端中可以选择不同的opmode)。
