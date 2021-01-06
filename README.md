@@ -16,6 +16,15 @@ To look into the code, open package "TeamCode -> java -> org.firstinspires.ftc.t
 
  Note that this is ONLY a demo for function testing.
  Nothing you're going to see here is final (Or maybe it is xD).
+ 
+ 2021.1.6 更新，由于设置了 gitignore，可能需要手动下载依赖，否则会发生编译错误。
+ 打开 TeamCode 中的 build.release.gradle,在大括号中插入以下内容：
+ 
+    implementation 'com.acmerobotics.roadrunner:core:0.5.2'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.3.10'
+    implementation group: 'org.ejml', name: 'ejml-all', version: '0.40'
+    
+点击 Sync now 或者重新编译，IDE会自动下载依赖。
 
 ## NOTICE
 
