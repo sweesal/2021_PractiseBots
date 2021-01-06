@@ -36,6 +36,7 @@ import org.firstinspires.ftc.teamcode.robotC.RobotMapBotC;
 import org.firstinspires.ftc.teamcode.robotC.subsystems.DriveTrainC;
 import org.firstinspires.ftc.teamcode.robotC.subsystems.IntakeC;
 import org.firstinspires.ftc.teamcode.robotC.subsystems.ShooterC;
+import org.firstinspires.ftc.teamcode.robotC.subsystems.WobbleGoalMover;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode C", group="C")
@@ -47,6 +48,7 @@ public class DoubleDriverBotC extends OpMode {
     private DriveTrainC driveTrain;
     private IntakeC intake;
     private ShooterC shooter;
+    private WobbleGoalMover wobbleGoalMover;
 
     @Override
     public void init() {
@@ -54,6 +56,7 @@ public class DoubleDriverBotC extends OpMode {
         driveTrain = new DriveTrainC();
         intake = new IntakeC();
         shooter = new ShooterC();
+        wobbleGoalMover = new WobbleGoalMover();
         telemetry.addData("Status", "Initialized");
     }
 
@@ -68,6 +71,9 @@ public class DoubleDriverBotC extends OpMode {
         shooter.setShooter(gamepad2.left_bumper);
         shooter.setTrigger(gamepad2.right_bumper);
         shooter.setElevator(gamepad2.right_stick_y*0.6, false, false);
+
+        // Wobble goal mover.
+        wobbleGoalMover.setIntake(gamepad2.y, gamepad2.a);
 
         // This is for showing the encoder & switch value of the elevator.
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
