@@ -64,13 +64,13 @@ public class SingleDriverBotB extends OpMode {
     public void loop() {
         // DriveTrain.
         driveTrain.driveMecanum(
-                gamepad1.left_stick_y*0.99, gamepad1.right_stick_x*0.99, gamepad1.left_stick_x*0.9, gamepad1.x);
+                gamepad1.left_stick_y * 0.99, gamepad1.right_stick_x * 0.99, gamepad1.left_stick_x * 0.9, gamepad1.x);
 
         // Superstructure
         intake.setIntake(gamepad1.x, gamepad1.b);
         shooter.setShooter(gamepad1.left_bumper);
         shooter.setTrigger(gamepad1.right_bumper);
-        shooter.setElevator(-gamepad1.right_stick_y*0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
+        shooter.setElevator(-gamepad1.right_stick_y * 0.6, shooter.getSwitchUpper(), shooter.getSwitchLower());
         shooter.setSlope(gamepad1.dpad_up, gamepad1.dpad_down);
 
         // This is for showing the encoder & switch value of the elevator.
@@ -79,11 +79,5 @@ public class SingleDriverBotB extends OpMode {
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
     }
-
-    @Override
-    public void stop() {
-
-    }
-
 
 }

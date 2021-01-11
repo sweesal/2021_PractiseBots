@@ -2,15 +2,15 @@ package org.firstinspires.ftc.lib.kinematics;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ChassisSpeeds {
+public class ChassisSpeed {
 
     public double vx;
     public double vy;
     public double omega;
 
-    public ChassisSpeeds() {}
+    public ChassisSpeed() {}
 
-    public ChassisSpeeds (double vX, double vY, double omega) {
+    public ChassisSpeed(double vX, double vY, double omega) {
         this.vx = vX;
         this.vy = vY;
         this.omega = omega;
