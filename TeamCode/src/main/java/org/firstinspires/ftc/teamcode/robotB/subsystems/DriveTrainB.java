@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode.robotB.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.lib.geometry.Rotation2d;
+import org.firstinspires.ftc.lib.kinematics.MecanumDriveKinematics;
+import org.firstinspires.ftc.lib.kinematics.MecanumWheelSpeeds;
+import org.firstinspires.ftc.lib.odometry.MecanumOdometry;
 import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 
 import java.util.Arrays;
@@ -62,50 +66,6 @@ public class DriveTrainB {
         rightRear.setPower(speeds[3]);
     }
 
-    public void driveMecanum(double xSpeed, double zRotation, double yTranslation) {
-        xSpeed = limit(xSpeed);
-        //xSpeed = applyDeadband(xSpeed, m_deadband);
-
-        zRotation = limit(zRotation);
-        //zRotation = applyDeadband(zRotation, m_deadband);
-
-        double[] leftMotorOutput = new double[2];
-        double[] rightMotorOutput = new double[2];
-
-        if (xSpeed != 0.0){
-            leftMotorOutput [0] = -xSpeed;
-            leftMotorOutput [1] = -xSpeed;
-            rightMotorOutput [0] = xSpeed;
-            rightMotorOutput [1] = xSpeed;
-        } else if (zRotation != 0.0) {
-            leftMotorOutput [0] = -zRotation;
-            leftMotorOutput [1] = -zRotation;
-            rightMotorOutput [0] = -zRotation;
-            rightMotorOutput [1] = -zRotation;
-        } else if (yTranslation != 0.0) {
-            leftMotorOutput[0] = yTranslation;
-            leftMotorOutput[1] = -yTranslation;
-            rightMotorOutput[0] = yTranslation;
-            rightMotorOutput[1] = -yTranslation;
-        } else {
-            Arrays.fill(leftMotorOutput, 0);
-            Arrays.fill(rightMotorOutput, 0);
-        }
-
-        this.leftRear.setPower(limit(leftMotorOutput[0]));
-        this.leftFront.setPower(limit(leftMotorOutput[1]));
-        this.rightRear.setPower(limit(rightMotorOutput[0]));
-        this.rightFront.setPower(limit(rightMotorOutput[1]));
-    }
-
-//    public void getMotors () {
-//        telemetry.addData("velocity",  "velocity %7d :%7d :%7d :%7d",
-//                leftFront.getPower()
-//                rightFront.getPower(),
-//                leftRear.getPower(),
-//                rightRear.getPower();
-//    }
-
     public double limit(double value) {
         if (value > 1.0) {
             return 1.0;
@@ -123,6 +83,17 @@ public class DriveTrainB {
         } else {
             return 0.0;
         }
+    }
+
+    public Rotation2d getAngle() {
+        // Negating the angle because WPILib gyros are CW positive.
+        return Rotation2d.fromDegrees(m_gyro.getAngle() * (DriveConstants.kGyroReversed ? 1.0 : -1.0));
+    }
+
+    MecanumOdometry odometry = new MecanumOdometry(new MecanumDriveKinematics(20, 20), getAngle());
+
+    private double encoderToMeters (double inputEncoder) {
+        return inputEncoder;
     }
 
 
