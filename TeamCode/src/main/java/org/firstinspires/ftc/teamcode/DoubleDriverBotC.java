@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.robotC.subsystems.ShooterC;
 import org.firstinspires.ftc.teamcode.robotC.subsystems.WobbleGoalMover;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Double Driver Mode C", group="C")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="双人模式 C车", group="C")
 //@Disabled
 
 public class DoubleDriverBotC extends OpMode {

@@ -18,7 +18,7 @@ repositories {
     maven { url = "https://dl.bintray.com/first-tech-challenge/ftcsdk/" }
 }
 
-android {
+android {6
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8

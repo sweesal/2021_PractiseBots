@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.robotB.subsystems.IntakeB;
 import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
 
-@TeleOp(name="Double Driver Mode B", group="B")
+@TeleOp(name="双人模式 B车", group="B")
 //@Disabled
 public class DoubleDriverBotB extends LinearOpMode {
 

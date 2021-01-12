@@ -47,4 +47,8 @@ public class RobotMapBotB {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void getHeading () {
+
+    }
+
 }

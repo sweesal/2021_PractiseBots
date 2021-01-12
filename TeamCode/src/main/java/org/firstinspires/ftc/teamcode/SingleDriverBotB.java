@@ -54,6 +54,7 @@ public class SingleDriverBotB extends OpMode {
     @Override
     public void init() {
         robotMapBotB.robotInit(hardwareMap);
+
         driveTrain = new DriveTrainB();
         intake = new IntakeB();
         shooter = new ShooterB();
