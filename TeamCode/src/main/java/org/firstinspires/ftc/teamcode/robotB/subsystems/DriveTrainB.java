@@ -2,13 +2,7 @@ package org.firstinspires.ftc.teamcode.robotB.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.lib.geometry.Rotation2d;
-import org.firstinspires.ftc.lib.kinematics.MecanumDriveKinematics;
-import org.firstinspires.ftc.lib.kinematics.MecanumWheelSpeeds;
-import org.firstinspires.ftc.lib.odometry.MecanumOdometry;
 import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
-
-import java.util.Arrays;
 
 public class DriveTrainB {
 
@@ -84,13 +78,6 @@ public class DriveTrainB {
             return 0.0;
         }
     }
-
-    public Rotation2d getAngle() {
-        // Negating the angle because WPILib gyros are CW positive.
-        return Rotation2d.fromDegrees(m_gyro.getAngle() * (DriveConstants.kGyroReversed ? 1.0 : -1.0));
-    }
-
-    MecanumOdometry odometry = new MecanumOdometry(new MecanumDriveKinematics(20, 20), getAngle());
 
     private double encoderToMeters (double inputEncoder) {
         return inputEncoder;

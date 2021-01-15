@@ -38,15 +38,20 @@ import org.firstinspires.ftc.teamcode.robotC.subsystems.ShooterC;
 import org.firstinspires.ftc.teamcode.robotC.RobotMapBotC;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode C", group="C")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="单人模式 C车", group="C")
 //@Disabled
 
 public class SingleDriverBotC extends OpMode {
-    private ElapsedTime runtime = new ElapsedTime();
     RobotMapBotC robotMapBotC = new RobotMapBotC();
+    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime timeStamp = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     private DriveTrainC driveTrain;
     private IntakeC intake;
     private ShooterC shooter;
+    private static final int PERIOD = 500;
+    private static double prevTimeStamp = -1;
+    private static double currentTimeStamp = 0;
+    private int periodCount = 0;
 
     @Override
     public void init() {
@@ -69,6 +74,11 @@ public class SingleDriverBotC extends OpMode {
         shooter.setTrigger(gamepad1.right_bumper);
         shooter.setElevator(gamepad1.right_stick_y*0.6, false, false);
 
+        periodTest();
+
+        telemetry.addData("Status", "Period Time: " + timeStamp.toString());
+
+        telemetry.addData("Period Number", periodCount);
         // This is for showing the encoder & switch value of the elevator.
         telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
 
@@ -81,5 +91,12 @@ public class SingleDriverBotC extends OpMode {
 
     }
 
+    public void periodTest () {
+        currentTimeStamp = timeStamp.milliseconds();
+        if (currentTimeStamp - prevTimeStamp > PERIOD) {
+            periodCount++;
+            prevTimeStamp = currentTimeStamp;
+        }
+    }
 
 }

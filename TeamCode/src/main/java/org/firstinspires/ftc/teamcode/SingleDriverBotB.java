@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 import org.firstinspires.ftc.teamcode.robotB.subsystems.ShooterB;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Single Driver Mode B", group="B")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="单人模式 B车", group="B")
 //@Disabled
 
 public class SingleDriverBotB extends OpMode {
