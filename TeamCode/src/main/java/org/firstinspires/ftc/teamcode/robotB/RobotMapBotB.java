@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robotB;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -23,6 +24,7 @@ public class RobotMapBotB {
     public static DigitalChannel upperBoundOut = null;
     public static DigitalChannel lowerBoundIn = null;
     public static DigitalChannel lowerBoundOut = null;
+    public static BNO055IMU imu;
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
@@ -40,6 +42,9 @@ public class RobotMapBotB {
         upperBoundOut = hardwareMap.get(DigitalChannel.class, "upperout");
         //lowerBoundIn = hardwareMap.get(DigitalChannel.class, "lowerin");
         lowerBoundOut = hardwareMap.get(DigitalChannel.class, "lowerout");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
     }
 
     public void initDcMotor(DcMotor motor){

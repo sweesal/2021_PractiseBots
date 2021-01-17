@@ -1,7 +1,12 @@
 package org.firstinspires.ftc.teamcode.robotB.subsystems;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.robotB.ConstantsB;
 import org.firstinspires.ftc.teamcode.robotB.RobotMapBotB;
 
 public class DriveTrainB {
@@ -10,6 +15,13 @@ public class DriveTrainB {
     private final DcMotor leftRear = RobotMapBotB.leftRear;
     private final DcMotor rightFront = RobotMapBotB.rightFront;
     private final DcMotor rightRear = RobotMapBotB.rightRear;
+    private BNO055IMU imu = RobotMapBotB.imu;
+
+    private ElapsedTime timeStamp = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+    private static double prevTimeStamp = -1;
+    private static final int PERIOD = 50;
+
+    private MotorConfigurationType motorConfig = MotorConfigurationType.getMotorType(RevRobotics20HdHexMotor.class);
 
     public DriveTrainB() {
         leftFront.setDirection(DcMotor.Direction.FORWARD);
@@ -60,6 +72,10 @@ public class DriveTrainB {
         rightRear.setPower(speeds[3]);
     }
 
+    public double getYaw(){
+        return 180 / Math.PI * imu.getAngularOrientation().firstAngle;
+    }
+
     public double limit(double value) {
         if (value > 1.0) {
             return 1.0;
@@ -79,9 +95,15 @@ public class DriveTrainB {
         }
     }
 
-    private double encoderToMeters (double inputEncoder) {
-        return inputEncoder;
+    private double encoderTicksToMeters (double encoderInput) {
+        return encoderInput * Math.PI * ConstantsB.WHEEL_DIAMETER / motorConfig.getTicksPerRev();
     }
 
+    public double getAverageEncoderPosition () {
+        double encoderPositionTotal =
+                leftFront.getCurrentPosition() + leftRear.getCurrentPosition()
+                        + rightFront.getCurrentPosition() + rightRear.getCurrentPosition();
+        return encoderTicksToMeters(encoderPositionTotal / 4);
+    }
 
 }
