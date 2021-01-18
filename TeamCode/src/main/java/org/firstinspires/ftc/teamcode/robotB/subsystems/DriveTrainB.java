@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robotB.subsystems;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -95,6 +96,13 @@ public class DriveTrainB {
         }
     }
 
+    public void stopMoors () {
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+    }
+
     private double encoderTicksToMeters (double encoderInput) {
         return encoderInput * Math.PI * ConstantsB.WHEEL_DIAMETER / motorConfig.getTicksPerRev();
     }
@@ -104,6 +112,52 @@ public class DriveTrainB {
                 leftFront.getCurrentPosition() + leftRear.getCurrentPosition()
                         + rightFront.getCurrentPosition() + rightRear.getCurrentPosition();
         return encoderTicksToMeters(encoderPositionTotal / 4);
+    }
+
+    private void runWithoutEncoder () {
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    private void stopAndResetEncoder () {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    private void runToPosition () {
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    private void velocityToMeters () {
+
+    }
+
+    private void setEncoderPosition (double position) {
+
+    }
+
+    private void getTrapezoidVelocityDuration (double position, double velocity) {
+
+    }
+
+    public void moveToEncoderPosition (double position, double velocity) {
+
+    }
+
+    public void turnTo (int degrees) {
+        double kp = 0.03, kf = -0.1;
+        double currentAngle = autoRobot.readHeading();
+        double error = setPoint - currentAngle;
+        double output = kp * error + kf;
+        if(output > 0.8)        output = 0.8;
+        else if(output < -0.8)  output = -0.8;
     }
 
 }
