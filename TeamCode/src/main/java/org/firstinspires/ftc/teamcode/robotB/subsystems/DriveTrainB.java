@@ -153,8 +153,8 @@ public class DriveTrainB {
 
     public void turnTo (int degrees) {
         double kp = 0.03, kf = -0.1;
-        double currentAngle = autoRobot.readHeading();
-        double error = setPoint - currentAngle;
+        double currentAngle = getYaw();
+        double error = degrees - currentAngle;
         double output = kp * error + kf;
         if(output > 0.8)        output = 0.8;
         else if(output < -0.8)  output = -0.8;

@@ -72,7 +72,7 @@ public class SingleDriverBotC extends OpMode {
         intake.setIntake(gamepad1.x, gamepad1.b);
         shooter.setShooter(gamepad1.left_bumper);
         shooter.setTrigger(gamepad1.right_bumper);
-        shooter.setElevator(gamepad1.right_stick_y*0.6, false, false);
+        shooter.setElevator(gamepad1.right_stick_y*0.6, false, shooter.getSwitchLower());
 
         periodTest();
 

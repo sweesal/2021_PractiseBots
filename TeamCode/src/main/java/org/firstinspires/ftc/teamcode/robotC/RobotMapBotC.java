@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.robotC;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -17,6 +18,7 @@ public class RobotMapBotC {
     public static DcMotor elevator = null;
     public static DcMotor ringArm = null;
     public static Servo trigger = null;
+    public static DigitalChannel lowerSwitch = null;
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
@@ -29,6 +31,7 @@ public class RobotMapBotC {
         elevator = hardwareMap.get(DcMotor.class,"elevator");
         ringArm = hardwareMap.get(DcMotor.class, "wobblering");
         trigger = hardwareMap.get(Servo.class,"trigger");
+        lowerSwitch = hardwareMap.get(DigitalChannel.class, "lowerout");
     }
 
     public void initDcMotor(DcMotor motor){
