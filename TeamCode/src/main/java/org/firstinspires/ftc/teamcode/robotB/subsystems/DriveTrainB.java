@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.robotB.subsystems;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -153,8 +152,8 @@ public class DriveTrainB {
 
     public void turnTo (int degrees) {
         double kp = 0.03, kf = -0.1;
-        double currentAngle = autoRobot.readHeading();
-        double error = setPoint - currentAngle;
+        double currentAngle = getYaw();
+        double error = degrees - currentAngle;
         double output = kp * error + kf;
         if(output > 0.8)        output = 0.8;
         else if(output < -0.8)  output = -0.8;

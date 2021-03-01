@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.robotC;
+package org.firstinspires.ftc.teamcode.robotD;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class RobotMapBotC {
+public class RobotMapBotD {
 
     public HardwareMap hardwareMap;
 
@@ -14,10 +14,8 @@ public class RobotMapBotC {
     public static DcMotor rightRear = null;
     public static DcMotor intake = null;
     public static DcMotor shooter = null;
-    public static DcMotor elevator = null;
-    public static DcMotor ringArm = null;
     public static Servo trigger = null;
-    public static Servo claw = null;
+
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
@@ -27,10 +25,7 @@ public class RobotMapBotC {
         rightRear = hardwareMap.get(DcMotor.class,"rightrear");
         intake = hardwareMap.get(DcMotor.class,"intake");
         shooter = hardwareMap.get(DcMotor.class,"shooter");
-        elevator = hardwareMap.get(DcMotor.class,"elevator");
-        ringArm = hardwareMap.get(DcMotor.class, "wobblering");
         trigger = hardwareMap.get(Servo.class,"trigger");
-        claw = hardwareMap.get(Servo.class, "claw");
     }
 
     public void initDcMotor(DcMotor motor){

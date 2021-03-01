@@ -32,52 +32,48 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.robotC.RobotMapBotC;
-import org.firstinspires.ftc.teamcode.robotC.subsystems.DriveTrainC;
-import org.firstinspires.ftc.teamcode.robotC.subsystems.IntakeC;
-import org.firstinspires.ftc.teamcode.robotC.subsystems.ShooterC;
-import org.firstinspires.ftc.teamcode.robotC.subsystems.WobbleGoalMover;
+import org.firstinspires.ftc.teamcode.robotD.RobotMapBotD;
+import org.firstinspires.ftc.teamcode.robotD.subsystems.DriveTrainD;
+import org.firstinspires.ftc.teamcode.robotD.subsystems.IntakeD;
+import org.firstinspires.ftc.teamcode.robotD.subsystems.ShooterD;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="双人模式 C车", group="C")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="单人模式 A车", group="A")
 //@Disabled
 
-public class DoubleDriverBotC extends OpMode {
+// Plz ignore this disabled class.
+
+public class SingleDriverBotD extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    RobotMapBotC robotMapBotC = new RobotMapBotC();
-    private DriveTrainC driveTrain;
-    private IntakeC intake;
-    private ShooterC shooter;
-    private WobbleGoalMover wobbleGoalMover;
+    RobotMapBotD robotMapBot = new RobotMapBotD();
+    private DriveTrainD driveTrain;
+    private IntakeD intake;
+    private ShooterD shooter;
+
+    private boolean triggerFlag = false;
+    private double triggerTime = 0;
 
     @Override
     public void init() {
-        robotMapBotC.robotInit(hardwareMap);
-        driveTrain = new DriveTrainC();
-        intake = new IntakeC();
-        shooter = new ShooterC();
-        wobbleGoalMover = new WobbleGoalMover();
+        robotMapBot.robotInit(hardwareMap);
+        driveTrain = new DriveTrainD();
+        intake = new IntakeD();
+        shooter = new ShooterD();
         telemetry.addData("Status", "Initialized");
     }
 
+
     @Override
     public void loop() {
+
         // DriveTrain.
         driveTrain.driveMecanum(
-                -gamepad1.left_stick_y*0.99, -gamepad1.right_stick_x*0.99, -gamepad1.left_stick_x*0.99, gamepad1.x);
+                gamepad1.left_stick_y*0.7, gamepad1.right_stick_x*0.7, gamepad1.left_stick_x*0.7, gamepad1.x);
 
         // Superstructure
-        intake.setIntake(gamepad2.x, gamepad2.b);
-        shooter.setShooter(gamepad2.left_bumper);
-        shooter.setTrigger(gamepad2.right_bumper);
-        shooter.setElevator(gamepad2.right_stick_y*0.6, false, false);
-
-        // Wobble goal mover.
-        wobbleGoalMover.setIntake(gamepad2.y, gamepad2.a);
-        wobbleGoalMover.setClaw(gamepad2.dpad_up, gamepad2.dpad_down);
-
-        // This is for showing the encoder & switch value of the elevator.
-        telemetry.addData("Elevator Position", "%5.2f", shooter.getElevator());
+        intake.setIntake(gamepad1.left_bumper, gamepad1.right_bumper);
+        shooter.setShooter(gamepad1.b);
+        shooter.setTrigger(gamepad1.left_trigger > 0.5);
 
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
@@ -85,8 +81,5 @@ public class DoubleDriverBotC extends OpMode {
 
     @Override
     public void stop() {
-
     }
-
-
 }
