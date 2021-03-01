@@ -70,7 +70,7 @@ public class DoubleDriverBotC extends OpMode {
         intake.setIntake(gamepad2.x, gamepad2.b);
         shooter.setShooter(gamepad2.left_bumper);
         shooter.setTrigger(gamepad2.right_bumper);
-        shooter.setElevator(gamepad2.right_stick_y*0.6, false, false);
+        shooter.setElevator(gamepad2.right_stick_y*0.6, false, shooter.getSwitchLower());
 
         // Wobble goal mover.
         wobbleGoalMover.setIntake(gamepad2.y, gamepad2.a);

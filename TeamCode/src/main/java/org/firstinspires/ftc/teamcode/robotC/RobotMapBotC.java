@@ -17,7 +17,6 @@ public class RobotMapBotC {
     public static DcMotor elevator = null;
     public static DcMotor ringArm = null;
     public static Servo trigger = null;
-    public static Servo claw = null;
 
     public void robotInit(HardwareMap hardwareMap){
         this.hardwareMap = hardwareMap;
@@ -30,7 +29,6 @@ public class RobotMapBotC {
         elevator = hardwareMap.get(DcMotor.class,"elevator");
         ringArm = hardwareMap.get(DcMotor.class, "wobblering");
         trigger = hardwareMap.get(Servo.class,"trigger");
-        claw = hardwareMap.get(Servo.class, "claw");
     }
 
     public void initDcMotor(DcMotor motor){

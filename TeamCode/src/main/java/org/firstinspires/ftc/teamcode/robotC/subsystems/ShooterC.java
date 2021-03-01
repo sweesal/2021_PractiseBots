@@ -15,8 +15,10 @@ public class ShooterC {
     private final DcMotor shooter = RobotMapBotC.shooter;
     private final DcMotor elevator = RobotMapBotC.elevator;
     private final Servo trigger = RobotMapBotC.trigger;
+    private final DigitalChannel lowerSwitch = RobotMapBotC.lowerSwitch;
     private final ElapsedTime triggerTimer;
     private final ElapsedTime slopeTimer;
+
 
     private boolean isShoot = false;
     private static boolean isTriggered = false;
@@ -29,8 +31,13 @@ public class ShooterC {
         elevator.setDirection(DcMotorSimple.Direction.FORWARD);
         elevator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         trigger.setDirection(Servo.Direction.FORWARD);
+        lowerSwitch.setMode(DigitalChannel.Mode.INPUT);
         triggerTimer = new ElapsedTime();
         slopeTimer = new ElapsedTime();
+    }
+
+    public boolean getSwitchLower () {
+        return !lowerSwitch.getState();
     }
 
 //    public void setShooter (boolean isBtnPressed) {
